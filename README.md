@@ -4,6 +4,10 @@ Visualizations of Utah geographic terrain using ThreeJS. Based heavily on the wo
 
 --------
 
+## Demo
+
+[View the Demo](http://cmalven.github.io/utah-terrain)
+
 ## Setup
 
 This project uses terrain data from the [Utah AGRC (Automated Geographic Reference Center)](http://gis.utah.gov/data/elevation-terrain-data/)
