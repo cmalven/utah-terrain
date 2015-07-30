@@ -27,19 +27,20 @@
     camera.position.set(0, -50, 50);
 
     var renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor( 0xffffff, 1 );
     renderer.setSize(width, height);
 
     var terrainLoader = new THREE.TerrainLoader();
-    terrainLoader.load('../assets/utah.bin', function(data) {
+    terrainLoader.load('../assets/utah-lite.bin', function(data) {
 
-        var geometry = new THREE.PlaneGeometry(60, 76, 599, 759);
+        var geometry = new THREE.PlaneGeometry(60, 76, 279, 354);
 
         for (var i = 0, l = geometry.vertices.length; i < l; i++) {
-            geometry.vertices[i].z = data[i] / 65535 * 5;
+            geometry.vertices[i].z = data[i] / 65535 * 4;
         }
 
         var material = new THREE.MeshPhongMaterial({
-            color: 0xdddddd, 
+            color: 0x333333, 
             wireframe: true
         });
 

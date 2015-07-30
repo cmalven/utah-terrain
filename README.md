@@ -43,6 +43,12 @@ All of the remaining steps will use a GeoTIFF file as their source, which we'll 
 gdalwarp -ts 10000 0 utah.vrt utah.tif
 ```
 
+Additionally, you might want to create an even move scaled down version to use in generating textures later on:
+
+```bash
+gdalwarp -ts 5000 0 utah.vrt utah-small.tif
+```
+
 ### Examine the GeoTIFF output
 
 ```bash
@@ -55,10 +61,13 @@ This will tell us some interesting details about the terrain output that we'll n
 
 ```bash
 # Create a .bin of terrain data
-gdal_translate -scale 0 5276 0 65535 -ot UInt16 -outsize 600 760 -of ENVI utah.tif ../assets/utah.bin
+gdal_translate -scale 0 5276 0 65535 -ot UInt16 -outsize 400 507 -of ENVI utah.tif ../assets/utah.bin
+
+# Create a smaller version for occulus demo
+gdal_translate -scale 0 5276 0 65535 -ot UInt16 -outsize 280 355 -of ENVI utah.tif ../assets/utah-lite.bin
 ```
 
-`5276` is a value that is greater than the `Computed Max` value from `gdalinfo` and will be the highest elevation point in the data. `-outsize 600 760` is the output size in pixels, and should be the same ratio as the `Size` we saw in `gdalinfo` but scaled down to make the visualization less GPU intensive.
+`5276` is a value that is greater than the `Computed Max` value from `gdalinfo` and will be the highest elevation point in the data. `-outsize 400 507` is the output size in pixels, and should be the same ratio as the `Size` we saw in `gdalinfo` but scaled down to make the visualization less GPU intensive.
 
 ### Create the color relief and hillshade images
 
@@ -66,10 +75,10 @@ The following commands create color and shading images that we'll map onto our v
 
 ```bash
 # Create the color relief
-gdaldem color-relief utah.tif color-relief.txt utah-relief.tif
+gdaldem color-relief utah-small.tif color-relief.txt utah-relief.tif
 
 # Create the hillshade
-gdaldem hillshade -combined utah.tif utah-hillshade.tif
+gdaldem hillshade -combined utah-small.tif utah-hillshade.tif
 ```
 
 After you've created these two files, you'll need to combine them in Photoshop (using Multiply blending for the top layer) and export them as `utah-texture.jpg` to `/assets`

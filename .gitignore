@@ -1,6 +1,11 @@
 .DS_Store
 
+assets/utah-lite.bin.aux.xml
+assets/utah-lite.hdr
+assets/utah.bin.aux.xml
+assets/utah.hdr
 src/utah-hillshade.tif
 src/utah-relief.tif
+src/utah-small.tif
 src/utah.tif
 src/utah.vrt
